@@ -1,4 +1,5 @@
-func multiply(a, b int) int {
+// 1개만 리턴할 때
+func multiply(a, b int) int { // 인자 => a int, b int
 	return a * b
 }
 
@@ -12,7 +13,7 @@ func repeatMe(words ...string) {
 	fmt.Println(words)
 }
 
-// Naked Return
+// Naked Return & defer
 func lenAndUpperNaked(name string) (length int, uppercase string) {
 	defer fmt.Println("I'm done") // defer -> function이 끝나고나서 실행
 	length, uppercase = len(name), strings.ToUpper(name)

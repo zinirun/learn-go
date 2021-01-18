@@ -5,13 +5,13 @@ type person struct {
 	favFood []string
 }
 
-/* struct 사용
-favFood := []string{"ramen", "cheese"}
-zini := person{ // value만 적어도 되지만 key를 적어야 명시적임
-	name:    "zini",
-	age:     25,
-	favFood: favFood,
+func useStruct() {
+	favFood := []string{"ramen", "cheese"}
+	zini := person{ // value만 적어도 되지만 key를 적어야 명시적임
+		name:    "zini",
+		age:     25,
+		favFood: favFood,
+	}
+	fmt.Println(zini)
+	fmt.Println(zini.name)
 }
-fmt.Println(zini)
-fmt.Println(zini.name)
-*/

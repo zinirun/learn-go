@@ -10,3 +10,15 @@ func canIDrinkSwitch(age int) bool {
 	}
 	return false
 }
+
+func basicSwitch() {
+	userType = "admin"
+	switch userType {
+	case "admin":
+		// ...
+	case "developer":
+		// ...
+	}
+	// default
+	// ...
+}
