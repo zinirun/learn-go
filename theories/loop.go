@@ -1,4 +1,4 @@
-package theory
+package theories
 
 // For Loop
 func superAdd(numbers ...int) int {

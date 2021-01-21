@@ -1,4 +1,4 @@
-package theory
+package theories
 
 // If Else, Variable Expression
 func canIDrink(age int) bool {

@@ -1,4 +1,4 @@
-package theory
+package theories
 
 // Switch
 func canIDrinkSwitch(age int) bool {
