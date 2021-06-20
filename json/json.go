@@ -3,58 +3,48 @@ package json
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"os"
-	"strconv"
 )
 
-type Users struct {
-	Users []User `json:"users"`
+// Marshal (stringify)
+type Book struct {
+	Title  string `json:"title"`
+	Author string `json:"author"`
 }
 
-type User struct {
-	Name   string `json:"name"`
-	Type   string `json:"type"`
-	Age    int    `json:"Age"`
-	Social Social `json:"social"`
-}
-
-type Social struct {
-	Facebook string `json:"facebook"`
-	Twitter  string `json:"twitter"`
-}
-
-func HandlingJsonFile() {
-	jsonFile, err := os.Open("json/users.json")
+func MarshalSample() {
+	book := Book{
+		Title:  "Learning Go",
+		Author: "zini",
+	}
+	// it converts struct to JSON BYTEARRAY
+	byteArray, err := json.Marshal(book)
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println("Opened users.json")
+	fmt.Println(byteArray)
+	fmt.Println(string(byteArray))
 
-	defer jsonFile.Close()
-
-	byteValue, _ := ioutil.ReadAll(jsonFile)
-
-	// We can use interface{} in any JSON data
-	var result map[string]interface{}
-	json.Unmarshal([]byte(byteValue), &result)
-
-	fmt.Println(result["users"])
-
-	// we initialize our Users array
-	var users Users
-
-	// we unmarshal our byteArray which contains our
-	// jsonFile's content into 'users' which we defined above
-	json.Unmarshal(byteValue, &users)
-
-	// we iterate through every user within our users array and
-	// print out the user Type, their name, and their facebook url
-	// as just an example
-	for i := 0; i < len(users.Users); i++ {
-		fmt.Println("User Type: " + users.Users[i].Type)
-		fmt.Println("User Age: " + strconv.Itoa(users.Users[i].Age))
-		fmt.Println("User Name: " + users.Users[i].Name)
-		fmt.Println("Facebook Url: " + users.Users[i].Social.Facebook)
+	// Indentation
+	byteArray, err = json.MarshalIndent(book, "", "  ")
+	if err != nil {
+		fmt.Println(err)
 	}
+	fmt.Println(string(byteArray))
+}
+
+// Unmarshal (parse)
+type SensorReading struct {
+	Name     string `json:"name"`
+	Capacity int    `json:"capacity"`
+	Time     string `json:"time"`
+}
+
+func UnmarshalSample() {
+	jsonString := `{"name": "battery sensor", "capacity": 40, "time": "2019-01-21T19:07:28Z"}`
+	var reading SensorReading
+	// if it's unstructed data, use map[string]interface{} (Not struct)
+	if err := json.Unmarshal([]byte(jsonString), &reading); err != nil {
+		fmt.Println(err)
+	}
+	fmt.Printf("%+v\n", reading)
 }

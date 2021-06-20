@@ -1,7 +1,10 @@
 package main
 
-import "github.com/zinirun/learn-go/json"
+import (
+	"github.com/zinirun/learn-go/json"
+)
 
 func main() {
-	json.HandlingJsonFile()
+
+	json.UnmarshalSample()
 }
