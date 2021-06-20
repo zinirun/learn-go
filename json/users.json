@@ -1,0 +1,11 @@
+{
+    "users": [{
+        "name": "zini",
+        "type": "developer",
+        "age": 24,
+        "social": {
+            "facebook": "zinirun",
+            "twitter": "zinirun"
+        }
+    }]
+}
