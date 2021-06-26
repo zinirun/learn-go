@@ -9,7 +9,7 @@ type person struct {
 	favFood []string
 }
 
-func useStruct() {
+func UseStruct() {
 	favFood := []string{"ramen", "cheese"}
 	zini := person{ // value만 적어도 되지만 key를 적어야 명시적임
 		name:    "zini",

@@ -1,10 +1,9 @@
 package main
 
 import (
-	"github.com/zinirun/learn-go/json"
+	"github.com/zinirun/learn-go/goroutine"
 )
 
 func main() {
-
-	json.UnmarshalSample()
+	goroutine.ChannelExample()
 }
