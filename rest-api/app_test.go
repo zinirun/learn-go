@@ -36,8 +36,25 @@ func TestFooPathHandler(t *testing.T) {
 	assert.Equal("Hello Foo", string(data))
 }
 
-func TestBarPathHandler_WithJson(t *testing.T) {
+func TestFooPathHandler_WithName(t *testing.T) {
+	assert := assert.New(t)
 
+	res := httptest.NewRecorder()
+	req := httptest.NewRequest("GET", "/foo?name=zini", nil)
+
+	mux := NewHttpHandler()
+	mux.ServeHTTP(res, req)
+
+	assert.Equal(http.StatusOK, res.Code)
+	// if res.Code != http.StatusOK {
+	// 	t.Fatal("Failed", res.Code)
+	// }
+
+	data, _ := ioutil.ReadAll(res.Body)
+	assert.Equal("Hello zini", string(data))
+}
+
+func TestBarPathHandler_WithJson(t *testing.T) {
 	assert := assert.New(t)
 
 	res := httptest.NewRecorder()
@@ -51,9 +68,6 @@ func TestBarPathHandler_WithJson(t *testing.T) {
 	mux.ServeHTTP(res, req)
 
 	assert.Equal(http.StatusCreated, res.Code)
-	// if res.Code != http.StatusOK {
-	// 	t.Fatal("Failed", res.Code)
-	// }
 
 	user := new(User)
 	err := json.NewDecoder(res.Body).Decode(user)
@@ -61,4 +75,19 @@ func TestBarPathHandler_WithJson(t *testing.T) {
 	assert.Nil(err)
 	assert.Equal("zini", user.LastName)
 	assert.Equal("heo", user.FirstName)
+}
+
+func TestBarPathHandler_WithBadBody(t *testing.T) {
+	assert := assert.New(t)
+
+	res := httptest.NewRecorder()
+	req := httptest.NewRequest("POST", "/bar", strings.NewReader(`{
+		"firstname": "heo",
+		"lastname": "zini",
+	}`))
+
+	mux := NewHttpHandler()
+	mux.ServeHTTP(res, req)
+
+	assert.Equal(http.StatusBadRequest, res.Code)
 }
