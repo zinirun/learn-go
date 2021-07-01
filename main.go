@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/zinirun/learn-go/goroutine"
+	restapi "github.com/zinirun/learn-go/rest-api"
 )
 
 func main() {
-	goroutine.ChannelExample()
+	restapi.NewHttpHandler()
 }
