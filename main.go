@@ -1,9 +1,9 @@
 package main
 
 import (
-	restapi "github.com/zinirun/learn-go/rest-api"
+	httprest "github.com/zinirun/learn-go/http-rest"
 )
 
 func main() {
-	restapi.NewHttpHandler()
+	httprest.RestHandler()
 }
