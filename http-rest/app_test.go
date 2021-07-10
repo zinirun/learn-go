@@ -23,7 +23,11 @@ func TestGetUserInfo(t *testing.T) {
 	assert.Equal(http.StatusOK, resp.StatusCode)
 
 	data, _ := ioutil.ReadAll(resp.Body)
-	assert.Contains(string(data), "User id: 89")
+	assert.Contains(string(data), "No User Id: 89")
+
+	resp, err = http.Get(ts.URL + "/users/abc")
+	assert.NoError(err)
+	assert.Equal(http.StatusNotFound, resp.StatusCode)
 }
 
 func TestCreateUserInfo(t *testing.T) {
@@ -50,7 +54,7 @@ func TestCreateUserInfo(t *testing.T) {
 	assert.NotEqual(0, user.ID)
 
 	id := user.ID
-	resp, err = http.Get(ts.URL + "/users" + strconv.Itoa(id))
+	resp, err = http.Get(ts.URL + "/users/" + strconv.Itoa(id))
 
 	assert.NoError(err)
 	assert.Equal(http.StatusOK, resp.StatusCode)
