@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
+	"strconv"
 	"strings"
 	"testing"
 
@@ -49,5 +50,14 @@ func TestCreateUserInfo(t *testing.T) {
 	assert.NotEqual(0, user.ID)
 
 	id := user.ID
-	resp, err = http.Get(ts.URL)
+	resp, err = http.Get(ts.URL + "/users" + strconv.Itoa(id))
+
+	assert.NoError(err)
+	assert.Equal(http.StatusOK, resp.StatusCode)
+
+	user2 := new(User)
+	err = json.NewDecoder(resp.Body).Decode(user2)
+	assert.NoError(err)
+	assert.Equal(user.ID, user2.ID)
+	assert.Equal(user.FirstName, user2.FirstName)
 }
