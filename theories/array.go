@@ -15,6 +15,6 @@ func ArraySample() {
 	unlimited = append(unlimited, "golang") // append는 직접 수정하지 않고 새로운 slice를 리턴함
 	fmt.Println(names, unlimited)
 
-	var subSlice = make([]string, 5)
+	subSlice := make([]string, 5)
 	copy(subSlice, names[:])
 }
